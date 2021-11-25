@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const { engine } = require('express-handlebars') 
+const restaurantList = require('./restaurant.json')
 
 const port = 3000
 

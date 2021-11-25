@@ -6,6 +6,7 @@ const port = 3000
 
 app.engine('handlebars', engine({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
+app.use(express.static('public'))
 
 app.get('/', (req, res) => {
   res.render('index')

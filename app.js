@@ -13,6 +13,12 @@ app.get('/', (req, res) => {
   res.render('index', {shops: restaurantList.results})
 })
 
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  const shop = restaurantList.results.find(item => item.id.toString() === id)
+  res.render('show', {shop: shop})
+})
+
 app.listen(port, () => {
   console.log('connect')
 })

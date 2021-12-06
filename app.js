@@ -27,8 +27,19 @@ app.get('/', (req, res) => {
   .lean()
   .then(shops => res.render('index', {shops}))
   .catch(error => console.log(error))
-  
 })
+
+// 新增餐廳
+app.get('/restaurants/new', (req, res) => {
+  return res.render('new')
+})
+
+app.post('/restaurants/', (req, res) => {
+  Restaurant.create(req.body)
+    .then(() => res.redirect("/"))
+    .catch(error => console.log(error))
+})
+
 // 顯示特定餐廳
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
@@ -37,10 +48,10 @@ app.get('/restaurants/:id', (req, res) => {
   .then(shop => res.render('show', {shop}))
   .catch(error => console.log(error))
 })
+
 // 搜尋餐廳
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword.toLowerCase().trim()
-
   Restaurant.find()
   .lean()
   .then(shops => {
@@ -48,9 +59,7 @@ app.get('/search', (req, res) => {
     res.render('index', {shops: filtershop, keyword}) 
   })
   .catch(error => console.log(error))
-
 })
-
 
 // 修改餐廳
 app.get('/restaurants/:id/edit', (req, res) => {

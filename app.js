@@ -11,6 +11,7 @@ const port = 3000
 app.engine('handlebars', engine({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
+app.use(express.urlencoded({extended: true}))
 
 const db = mongoose.connection
 db.on('error', () => {
@@ -49,6 +50,13 @@ app.get('/restaurants/:id/edit', (req, res) => {
   return Restaurant.findById(id)
   .lean()
   .then((shop) => res.render('edit', {shop}))
+  .catch(error => console.log(error))
+})
+
+app.post('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  Restaurant.findByIdAndUpdate(id, req.body)
+  .then(() => res.redirect(`/restaurants/${id}`))
   .catch(error => console.log(error))
 })
 

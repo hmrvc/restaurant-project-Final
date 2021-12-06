@@ -40,9 +40,17 @@ app.get('/restaurants/:id', (req, res) => {
 // 搜尋餐廳
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword.toLowerCase().trim()
-  const shops = restaurantList.results.filter(item => item.name.toLowerCase().includes(keyword) || item.category.includes(keyword))
-  res.render('index', {shops: shops, keyword: keyword})
+
+  Restaurant.find()
+  .lean()
+  .then(shops => {
+    const filtershop = shops.filter(item => item.name.toLowerCase().includes(keyword) || item.category.includes(keyword))
+    res.render('index', {shops: filtershop, keyword}) 
+  })
+  .catch(error => console.log(error))
+
 })
+
 
 // 修改餐廳
 app.get('/restaurants/:id/edit', (req, res) => {

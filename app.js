@@ -31,14 +31,25 @@ app.get('/', (req, res) => {
 // 顯示特定餐廳
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
-  const shop = restaurantList.results.find(item => item.id.toString() === id)
-  res.render('show', {shop: shop})
+  return Restaurant.findById(id)
+  .lean()
+  .then(shop => res.render('show', {shop}))
+  .catch(error => console.log(error))
 })
 // 搜尋餐廳
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword.toLowerCase().trim()
   const shops = restaurantList.results.filter(item => item.name.toLowerCase().includes(keyword) || item.category.includes(keyword))
   res.render('index', {shops: shops, keyword: keyword})
+})
+
+// 修改餐廳
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+  .lean()
+  .then((shop) => res.render('edit', {shop}))
+  .catch(error => console.log(error))
 })
 
 app.listen(port, () => {

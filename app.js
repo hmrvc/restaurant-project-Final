@@ -1,17 +1,15 @@
 const express = require('express')
-const app = express()
-const { engine } = require('express-handlebars') 
-const restaurantList = require('./restaurant.json')
 const mongoose = require('mongoose')
+const { engine } = require('express-handlebars') 
+const methodOverride = require('method-override')
+
 const Restaurant = require('./models/Restaurant')
 
-mongoose.connect('mongodb://localhost/restaurant-project')
-const port = 3000
+const app = express()
 
-app.engine('handlebars', engine({defaultLayout: 'main'}))
-app.set('view engine', 'handlebars')
-app.use(express.static('public'))
-app.use(express.urlencoded({extended: true}))
+mongoose.connect('mongodb://localhost/restaurant-project')
+
+const port = 3000
 
 const db = mongoose.connection
 db.on('error', () => {
@@ -20,6 +18,12 @@ db.on('error', () => {
 db.once('open', () => {
   console.log('mongodb connect')
 })
+
+app.engine('handlebars', engine({defaultLayout: 'main'}))
+app.set('view engine', 'handlebars')
+app.use(express.static('public'))
+app.use(express.urlencoded({extended: true}))
+app.use(methodOverride('_method'))
 
 // 顯示所有餐廳
 app.get('/', (req, res) => {

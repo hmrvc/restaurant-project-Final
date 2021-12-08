@@ -29,13 +29,14 @@ app.use(methodOverride('_method'))
 
 app.use(routes)
 
-// 顯示所有餐廳
-app.get('/', (req, res) => {
-  Restaurant.find()
-  .lean()
-  .then(shops => res.render('index', {shops}))
-  .catch(error => console.log(error))
-})
+// // 顯示所有餐廳
+// app.get('/', (req, res) => {
+//   Restaurant.find()
+//   .lean()
+//   .then(shops => res.render('index', {shops}))
+//   .catch(error => console.log(error))
+// })
+
 
 // 新增餐廳
 app.get('/restaurants/new', (req, res) => {

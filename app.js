@@ -5,6 +5,8 @@ const methodOverride = require('method-override')
 
 const Restaurant = require('./models/Restaurant')
 
+const routes = require('./routes')
+
 const app = express()
 
 mongoose.connect('mongodb://localhost/restaurant-project')
@@ -24,6 +26,8 @@ app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
+
+app.use(routes)
 
 // 顯示所有餐廳
 app.get('/', (req, res) => {

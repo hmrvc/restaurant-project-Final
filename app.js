@@ -38,25 +38,25 @@ app.use(routes)
 // })
 
 
-// 新增餐廳
-app.get('/restaurants/new', (req, res) => {
-  return res.render('new')
-})
+// // 新增餐廳
+// app.get('/restaurants/new', (req, res) => {
+//   return res.render('new')
+// })
 
-app.post('/restaurants/', (req, res) => {
-  Restaurant.create(req.body)
-    .then(() => res.redirect("/"))
-    .catch(error => console.log(error))
-})
+// app.post('/restaurants/', (req, res) => {
+//   Restaurant.create(req.body)
+//     .then(() => res.redirect("/"))
+//     .catch(error => console.log(error))
+// })
 
-// 顯示特定餐廳
-app.get('/restaurants/:id', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
-  .lean()
-  .then(shop => res.render('show', {shop}))
-  .catch(error => console.log(error))
-})
+// // 顯示特定餐廳
+// app.get('/restaurants/:id', (req, res) => {
+//   const id = req.params.id
+//   return Restaurant.findById(id)
+//   .lean()
+//   .then(shop => res.render('show', {shop}))
+//   .catch(error => console.log(error))
+// })
 
 // 搜尋餐廳
 app.get('/search', (req, res) => {
@@ -70,29 +70,29 @@ app.get('/search', (req, res) => {
   .catch(error => console.log(error))
 })
 
-// 修改餐廳
-app.get('/restaurants/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
-  .lean()
-  .then((shop) => res.render('edit', {shop}))
-  .catch(error => console.log(error))
-})
+// // 修改餐廳
+// app.get('/restaurants/:id/edit', (req, res) => {
+//   const id = req.params.id
+//   return Restaurant.findById(id)
+//   .lean()
+//   .then((shop) => res.render('edit', {shop}))
+//   .catch(error => console.log(error))
+// })
 
-app.put('/restaurants/:id', (req, res) => {
-  const id = req.params.id
-  Restaurant.findByIdAndUpdate(id, req.body)
-  .then(() => res.redirect(`/restaurants/${id}`))
-  .catch(error => console.log(error))
-})
+// app.put('/restaurants/:id', (req, res) => {
+//   const id = req.params.id
+//   Restaurant.findByIdAndUpdate(id, req.body)
+//   .then(() => res.redirect(`/restaurants/${id}`))
+//   .catch(error => console.log(error))
+// })
 
-//刪除餐廳
-app.delete('/restaurants/:id', (req, res) => {
-  const id = req.params.id
-  Restaurant.findByIdAndDelete(id)
-  .then(() => res.redirect(`/`))
-  .catch(error => console.log(error))
-})
+// //刪除餐廳
+// app.delete('/restaurants/:id', (req, res) => {
+//   const id = req.params.id
+//   Restaurant.findByIdAndDelete(id)
+//   .then(() => res.redirect(`/`))
+//   .catch(error => console.log(error))
+// })
 
 app.listen(port, () => {
   console.log('connect')

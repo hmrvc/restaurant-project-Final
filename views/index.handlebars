@@ -42,7 +42,7 @@
             </div>
             <div class="card-foot d-flex justify-content-end m-2">
               
-              <form action="./restaurants/{{ this._id }}/delete" method="POST" class="d-flex justify-content-center">
+              <form action="./restaurants/{{ this._id }}?_method=DELETE" method="POST" class="d-flex justify-content-center">
                 <a href="./restaurants/{{this._id}}/edit" class="px-1"><i class="fas fa-edit"></i></a>
                 <a href="./restaurants/{{this._id}}" class="px-1"><i class="fas fa-align-justify"></i></a>
                 <button id="deletebtn" type="submit" class="px-1"><i class="fas fa-trash text-primary "></i></button>

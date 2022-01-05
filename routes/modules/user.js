@@ -38,7 +38,8 @@ router.post('/register', (req, res) => {
 
 router.get('/logout', (req, res) => {
   //登出使用者
-  res.redirect('login')
+  req.logout()
+  res.redirect('/user/login')
 })
 
 

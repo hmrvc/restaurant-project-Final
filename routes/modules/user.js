@@ -11,6 +11,16 @@ router.post('/login', (req, res) => {
 
 })
 
+router.get('/register', (req, res) => {
+  //轉向註冊頁面
+  res.render('register')
+})
+
+router.post('/register', (req, res) => {
+  //取得register頁面資料
+
+})
+
 router.get('/logout', (req, res) => {
   //登出使用者
   res.redirect('login')

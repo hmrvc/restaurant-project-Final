@@ -6,13 +6,13 @@ module.exports = app => {
   app.use(passport.initialize())
   app.use(passport.session())
 
-  passport.use(new LocalStrategy({usernameField: 'email'}, (email, password, done) => {
+  passport.use(new LocalStrategy({usernameField: 'email', passReqToCallback: true}, (req, email, password, done) => {
     User.findOne({email}).then(user => {
       if (!user) {
-        return done(null, false, {message: 'Email is not exist'})
+        return done(null, false, req.flash('warn_msg', 'Email is not exist'))
       }
       if (password !== user.password) {
-        return done(null, false, {message: 'Password is not correct'})
+        return done(null, false, req.flash('warn_msg', 'Password is not correct'))
       }
       return done(null, user)
     })

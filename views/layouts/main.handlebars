@@ -23,7 +23,11 @@
         </a>
         <div class="text-right">
           <a href="/restaurants/new"><button class="btn btn-secondary">新增餐廳</button></a>
+          {{#if isAuthenticated}}
+           <a href="/user/logout"><button class="btn btn-secondary">登出</button></a>
+           {{else}}
            <a href="/user/login"><button class="btn btn-secondary">登入</button></a>
+           {{/if}}
         </div>
       </div>
     </nav>

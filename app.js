@@ -3,6 +3,9 @@ const session = require('express-session')
 const { engine } = require('express-handlebars') 
 const methodOverride = require('method-override')
 const flash = require('connect-flash')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 
 const routes = require('./routes')
 require('./config/mongoose')
@@ -11,12 +14,12 @@ const UsePassport = require('./config/passport')
 
 const app = express()
 
-const port = 3000
+const port = process.env.PORT
 
 app.engine('handlebars', engine({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
 app.use(session({
-  secret: 'TTT',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
